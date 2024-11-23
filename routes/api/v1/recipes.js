@@ -2,21 +2,22 @@ const express = require('express')
 const router = express.Router()
 const recipes = require('../../../data/recipes.json')
 
+//get /api/v1/
 router.get('/', (request, response) => {
     response.send(recipes.map(({ id, title, image, prepTime, difficulty }) => ({
         id, title, image, prepTime, difficulty
     })))
 })
 
-// POST /api/v1/recipe/add
+// post /api/v1/recipe/add
 router.post('/recipe/add', (request, response) => {
     const addedRecipe = request.body
-    addedRecipe.id = recipes.length + 1 // Generate a unique Id
+    addedRecipe.id = recipes.length + 1 //Generate a unique Id
     recipes.push(addedRecipe)
-    response.send(addedRecipe)  // Return the added recipe object
+    response.send(addedRecipe)  //Return the added recipe
 })
 
-// GET /api/v1/recipe/:id
+// get /api/v1/recipe/:id
 router.get('/recipe/:id', (request, response) => {
     const recipeId = request.params.id;  
     const Result = recipes.find(recipe => recipe.id.toString() === recipeId)
